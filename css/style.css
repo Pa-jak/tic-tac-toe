@@ -40,7 +40,7 @@ div {
   background-color: gray;
 }
 
-span {
+.content {
   font-size: 7vw;
   position: absolute;
   left: 50%;
