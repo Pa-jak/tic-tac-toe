@@ -1,0 +1,50 @@
+* {
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: grey;
+  position: relative;
+}
+
+h1 {
+  text-align: center;
+  margin: 50px 0;
+}
+
+.reset {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+}
+
+.playground {
+  width: 30vw;
+  height: 30vw;
+  position: absolute;
+  background-color: rgb(56, 56, 56);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+div {
+  flex-basis: 33%;
+  height: 33%;
+  position: relative;
+  border: 1px solid rgb(56, 56, 56);
+  background-color: gray;
+}
+
+span {
+  font-size: 7vw;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(169, 223, 21);
+}/*# sourceMappingURL=style.css.map */
