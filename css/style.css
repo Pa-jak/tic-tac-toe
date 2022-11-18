@@ -37,22 +37,6 @@ body {
   border: 2px solid red;
 }
 
-.reset {
-  position: absolute;
-  bottom: -75px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  width: 150px;
-  height: 50px;
-  font-size: 30px;
-  letter-spacing: 2px;
-  border-radius: 10px;
-  line-height: 50px;
-}
-.reset:hover {
-  background-color: red;
-}
-
 .playground {
   width: 80vw;
   height: 80vw;
@@ -84,10 +68,76 @@ div {
 }
 
 .content {
-  font-size: 7vw;
+  font-size: 6em;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   color: rgb(169, 223, 21);
+}
+
+.cover {
+  width: 100vw;
+  height: 100vh;
+  background-color: green;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  transition: 1s ease-in;
+}
+.cover__who-win {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: 1s ease-in;
+}
+
+.reset {
+  width: 150px;
+  height: 50px;
+  font-size: 30px;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  line-height: 50px;
+}
+.reset:hover {
+  background-color: red;
+  cursor: pointer;
+}
+
+.switches {
+  display: flex;
+  position: absolute;
+  bottom: -100px;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+  border: none;
+}
+
+.player-choose {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 80px;
+  border: none;
+}
+.player-choose__button {
+  border-radius: 10px;
+  background-color: white;
+  height: 25px;
+  line-height: 23px;
+  text-align: center;
+}
+.player-choose__button:hover {
+  cursor: pointer;
+  background-color: red;
+}
+
+.ai {
+  background-color: red;
 }/*# sourceMappingURL=style.css.map */

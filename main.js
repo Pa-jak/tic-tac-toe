@@ -1,12 +1,17 @@
-const divs = [...document.querySelectorAll('div')]
+const divs = [...document.querySelectorAll('.field')]
 const spans = [...document.querySelectorAll('.content')]
 const btnReset = document.querySelector('.reset')
-// const player = document.querySelector('.player')
 const scoreO = document.querySelector('.scoreO')
 const scoreX = document.querySelector('.scoreX')
+const cover = document.querySelector('.cover')
+const coverWhoWin = document.querySelector('.cover__who-win')
+const playerBtn = document.querySelector('.player') 
+const aiBtn = document.querySelector('.ai') 
 
 let score = []
 let char = 'X'
+let playerTurn = 0
+let random = Math.floor(Math.random() * divs.length) 
 
 const playerX = {
     score: 0,
@@ -15,95 +20,113 @@ const playerX = {
 
 const playerO = {
     score: 0,
-    char: 'O'
+    char: 'O',
+    isAi: 1
 }
 
-let playerTurn = 0
+
+
+const reset = ()=>{
+    spans.forEach((span)=>span.textContent= '')
+    scoreO.style.border = '2px solid black';
+    scoreX.style.border = '2px solid red';
+    scoreO.textContent= 'playerO: 0';//
+    scoreX.textContent= 'playerX: 0';//
+    playerO.score = 0;//
+    playerX.score = 0;//
+    playerTurn = 0;
+    score = [];
+    char = 'X';
+
+}
+
+
+
+const winConditions = () =>{
+    // win X
+    if(score[0] === 'X' && score[1] === 'X' && score[2] === 'X' || score[3] === 'X' && score[4] === 'X' && score[5] === 'X' || score[6] === 'X' && score[7] === 'X' && score[8] === 'X' || score[0] === 'X' && score[3] === 'X' && score[6] === 'X' || score[1] === 'X' && score[4] === 'X' && score[7] === 'X' || score[2] === 'X' && score[5] === 'X' && score[8] === 'X' || score[0] === 'X' && score[4] === 'X' && score[8] === 'X' || score[2] === 'X' && score[4] === 'X' && score[6] === 'X'){
+        playerXwin()
+        win()
+    }
+//win O
+    else if(score[0] === 'O' && score[1] === 'O' && score[2] === 'O' || score[3] === 'O' && score[4] === 'O' && score[5] === 'O' || score[6] === 'O' && score[7] === 'O' && score[8] === 'O' || score[0] === 'O' && score[3] === 'O' && score[6] === 'O' || score[1] === 'O' && score[4] === 'O' && score[7] === 'O' || score[2] === 'O' && score[5] === 'O' && score[8] === 'O' || score[0] === 'O' && score[4] === 'O' && score[8] === 'O' || score[2] === 'O' && score[4] === 'O' && score[6] === 'O'){
+        playerOwin()
+        win()
+    }       
+//drow
+    else if(playerTurn == 9){
+        win()
+        coverWhoWin.textContent = 'draw'
+        
+    }
+}
+
+const win = () => {
+    spans.forEach((span)=>span.textContent= '')
+    scoreO.style.border = '2px solid black';
+    scoreX.style.border = '2px solid red';
+    coverWhoWin.style.display = "block";
+    cover.style.display = 'block';
+    playerTurn = 0;
+    score = []; 
+    char = 'X';   
+}
 
 const playerXwin = ()=>{
     playerX.score++
     scoreX.textContent= `playerX: ${playerX.score}`;
+    coverWhoWin.textContent = 'player X win'
 }
 
 const playerOwin = ()=>{
     playerO.score++
     scoreO.textContent= `playerO: ${playerO.score}`;
+    coverWhoWin.textContent = 'player O win'
 }
+
+// rozpoczęcie gry 
 
 for(let i = 0; i < divs.length ; i++){
     divs[i].addEventListener('click', ()=>{
-
+// player turn
         if(spans[i].textContent == ''){
-            if(playerTurn%2 == 1){
-                char = 'O'
-                // player.textContent= 'player: X';
-                scoreX.style.border = '2px solid red';
-                scoreO.style.border = '2px solid black';
-                score[i] = 'O'
-                // console.log(playerTurn%2 == 1, 'O', score[i])
-            }else if (playerTurn%2 != 1){
+            if(playerTurn%2 == 0){
                 char = 'X'
-                // player.textContent= 'player: O'
+                score[i] = 'X'
                 scoreO.style.border = '2px solid red';
                 scoreX.style.border = '2px solid black';
-                score[i] = 'X'
-                // console.log(playerTurn%2 != 1, "X")
-            }
+            }else if (playerTurn%2 != 0){
+                char = 'O'
+                score[i] = 'O'
+                scoreX.style.border = '2px solid red';
+                scoreO.style.border = '2px solid black';
+                }
+            
         spans[i].textContent = char
         playerTurn ++
-        console.log(i, playerTurn, score)
-        // win X
-        if(score[0] === 'X' && score[1] === 'X' && score[2] === 'X' || score[3] === 'X' && score[4] === 'X' && score[5] === 'X' || score[6] === 'X' && score[7] === 'X' && score[8] === 'X' || score[0] === 'X' && score[3] === 'X' && score[6] === 'X' || score[1] === 'X' && score[4] === 'X' && score[7] === 'X' || score[2] === 'X' && score[5] === 'X' && score[8] === 'X' || score[0] === 'X' && score[4] === 'X' && score[8] === 'X' || score[2] === 'X' && score[4] === 'X' && score[6] === 'X'){
-            playerXwin()
-            console.log('win 1a', playerX.score)
-            win()
-        }
-        //win O
-        if(score[0] === 'O' && score[1] === 'O' && score[2] === 'O' || score[3] === 'O' && score[4] === 'O' && score[5] === 'O' || score[6] === 'O' && score[7] === 'O' && score[8] === 'O' || score[0] === 'O' && score[3] === 'O' && score[6] === 'O' || score[1] === 'O' && score[4] === 'O' && score[7] === 'O' || score[2] === 'O' && score[5] === 'O' && score[8] === 'O' || score[0] === 'O' && score[4] === 'O' && score[8] === 'O' || score[2] === 'O' && score[4] === 'O' && score[6] === 'O'){
-            console.log('win 1a')
-            playerOwin()
-            win()
-        }
-        }
-
-        console.log(playerTurn)
-        if(playerTurn == 9){
-            win()
-            //draw
-        }
+        winConditions()
+    }
     })
 }
 
-const reset = ()=>{
-    spans.forEach((span)=>span.textContent= '')
-    char = 'X'
-    playerTurn = 0
-    // player.textContent = 'player: X'
-    scoreX.style.border = '2px solid red';
-    scoreO.style.border = '2px solid black';
-    score = []
-    playerO.score = 0;
-    playerX.score = 0;
-    scoreO.textContent= 'playerO: 0';
-    scoreX.textContent= 'playerX: 0';
 
-}
-
-const win = () => {
-    // chcemy wywołać animacje która będzie wyświetlała napis "wygrał gracz" i znak gracza który wygrał i przycisk do kolejnej gry 
-    // reset player turn 
-    // reset tablicy z planszą 
-    // reset gracza na X
-    spans.forEach((span)=>span.textContent= '')
-    char = 'X'
-    playerTurn = 0
-    // player.textContent = 'player: X'
-    scoreX.style.border = '2px solid red';
-    scoreO.style.border = '2px solid black';
-    score = []    
-
-
-}
+//listeners
 
 btnReset.addEventListener('click', reset)
 
+cover.addEventListener('click', ()=> {
+    cover.style.display = 'none';
+    coverWhoWin.style.display = "none"
+} )
+
+playerBtn.addEventListener('click', ()=> {
+    playerO.isAi = 0
+    playerBtn.style.backgroundColor = 'red';
+    aiBtn.style.backgroundColor = 'white';
+})
+
+aiBtn.addEventListener('click', ()=> {
+    playerO.isAi = 1
+    aiBtn.style.backgroundColor = 'red';
+    playerBtn.style.backgroundColor = 'white';
+})
